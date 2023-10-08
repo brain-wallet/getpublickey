@@ -3,11 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Public Key Calculator</title>
+    <title>Public Key Generator</title>
     <style>
       body {
         background: linear-gradient(135deg, #9d50bb, #6e48aa);
-        background-attachment: fixed;
         color: #fff;
         font-family: 'Arial', sans-serif;
         display: flex;
@@ -18,27 +17,19 @@
         margin: 0;
         position: relative;
       }
-
       .container {
         background-color: rgba(106, 57, 171, 0.8);
         padding: 30px;
         border-radius: 15px;
         text-align: center;
-        width: 400px;
+        width: 620px;
       }
-
-      h1 {
-        color: #fff;
-        font-size: 32px;
-      }
-
+      h1,
       label,
       p {
         font-size: 18px;
-        margin-bottom: 15px;
-        margin-top: 15px;
+        margin: 15px 0;
       }
-
       input {
         width: 80%;
         padding: 12px;
@@ -47,12 +38,10 @@
         border-radius: 5px;
         margin-top: 10px;
       }
-
       p {
         color: #ffa07a;
         font-weight: bold;
       }
-
       a {
         position: absolute;
         bottom: 10px;
@@ -61,7 +50,6 @@
         font-size: 14px;
         text-decoration: none;
       }
-
       a:hover {
         text-decoration: underline;
       }
@@ -69,13 +57,13 @@
   </head>
   <body>
     <div class="container">
-      <h1>Public Key Calculator</h1>
-      <label for="dataInput">Enter private key in hex:</label>
+      <h1>Public Key Generator</h1>
+      <label for="dataInput">Enter private key (hex):</label>
       <input type="text" id="dataInput" oninput="calculatePublicKey()" />
       <p id="output"></p>
     </div>
     <a
-      href="https://github.com/your-repo"
+      href="https://github.com/your-repo-link"
       target="_blank"
       rel="noopener noreferrer"
       >View Source</a
@@ -87,15 +75,14 @@
       window.calculatePublicKey = async () => {
         const data = document.getElementById('dataInput').value
         try {
-          const publicKey = getPublicKey(
-            new Uint8Array(
-              data.match(/.{1,2}/g).map(byte => parseInt(byte, 16))
-            )
+          const privateKeyBytes = new Uint8Array(
+            data.match(/.{1,2}/g).map(byte => parseInt(byte, 16))
           )
+          const publicKey = getPublicKey(privateKeyBytes)
           document.getElementById(
             'output'
           ).innerText = `Public key: ${Array.from(publicKey)
-            .map(byte => byte.toString(16).padStart(2, '0'))
+            .map(byte => byte.toString(16))
             .join('')}`
         } catch (err) {
           document.getElementById('output').innerText = `Error: ${err.message}`
