@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Public Key Calculator</title>
+    <style>
+      body {
+        background: linear-gradient(135deg, #9d50bb, #6e48aa);
+        background-attachment: fixed;
+        color: #fff;
+        font-family: 'Arial', sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        position: relative;
+      }
+
+      .container {
+        background-color: rgba(106, 57, 171, 0.8);
+        padding: 30px;
+        border-radius: 15px;
+        text-align: center;
+        width: 400px;
+      }
+
+      h1 {
+        color: #fff;
+        font-size: 32px;
+      }
+
+      label,
+      p {
+        font-size: 18px;
+        margin-bottom: 15px;
+        margin-top: 15px;
+      }
+
+      input {
+        width: 80%;
+        padding: 12px;
+        font-size: 18px;
+        border: none;
+        border-radius: 5px;
+        margin-top: 10px;
+      }
+
+      p {
+        color: #ffa07a;
+        font-weight: bold;
+      }
+
+      a {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        color: #fff;
+        font-size: 14px;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Public Key Calculator</h1>
+      <label for="dataInput">Enter private key in hex:</label>
+      <input type="text" id="dataInput" oninput="calculatePublicKey()" />
+      <p id="output"></p>
+    </div>
+    <a
+      href="https://github.com/your-repo"
+      target="_blank"
+      rel="noopener noreferrer"
+      >View Source</a
+    >
+
+    <script type="module">
+      import { getPublicKey } from 'https://esm.sh/nostr-tools'
+
+      window.calculatePublicKey = async () => {
+        const data = document.getElementById('dataInput').value
+        try {
+          const publicKey = getPublicKey(
+            new Uint8Array(
+              data.match(/.{1,2}/g).map(byte => parseInt(byte, 16))
+            )
+          )
+          document.getElementById(
+            'output'
+          ).innerText = `Public key: ${Array.from(publicKey)
+            .map(byte => byte.toString(16).padStart(2, '0'))
+            .join('')}`
+        } catch (err) {
+          document.getElementById('output').innerText = `Error: ${err.message}`
+        }
+      }
+    </script>
+  </body>
+</html>

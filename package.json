@@ -1,0 +1,27 @@
+{
+  "name": "getpublickey",
+  "version": "0.0.0",
+  "description": "getpublickey",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brain-wallet/getpublickey.git"
+  },
+  "keywords": [
+    "nostr",
+    "nostdav",
+    "app"
+  ],
+  "author": "Melvin Carvalho",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brain-wallet/getpublickey/issues"
+  },
+  "homepage": "https://github.com/brain-wallet/getpublickey#readme",
+  "dependencies": {
+  }
+}
