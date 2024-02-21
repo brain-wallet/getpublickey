@@ -22,5 +22,7 @@
     "url": "https://github.com/brain-wallet/getpublickey/issues"
   },
   "homepage": "https://github.com/brain-wallet/getpublickey#readme",
-  "dependencies": {}
+  "dependencies": {
+    "tiny-secp256k1": "^2.2.3"
+  }
 }
